@@ -1,19 +1,16 @@
-SCRIPTS_DIR = $(shell readlink -f scripts)
+SCRIPTS_DIR = $(realpath scripts)
 SCRIPTS := $(shell find $(SCRIPTS_DIR))
 
-PATCHES_DIR = $(shell readlink -f patches)
+PATCHES_DIR = $(realpath patches)
 
 # BIT file
-BIT_FILE ?= $(shell realpath system_top.bit)
-BIT_FILENAME = $(shell basename $(BIT_FILE))
+BIT_FILE ?= $(realpath system_top.bit)
 
 # HDF file
-HDF_FILE ?= $(shell readlink -f design.xsa)
-HDF_FILENAME = $(shell basename $(HDF_FILE))
+HDF_FILE ?= $(realpath design.xsa)
 
 # UBOOT elf
-UBOOT_FILE ?= $(shell readlink -f u-boot)
-UBOOT_FILENAME = $(shell basename $(UBOOT_FILE))
+UBOOT_FILE ?= $(realpath u-boot)
 
 BUILD_DIR = build/
 OUT_DIR = output/
