@@ -1,0 +1,55 @@
+From 72b1869e914df4d4d770e13c89074e735969c318 Mon Sep 17 00:00:00 2001
+From: Ovidiu Panait <ovpanait@gmail.com>
+Date: Sun, 12 Jul 2020 20:19:04 +0300
+Subject: [PATCH] fsbl_hooks: Add microblaze reset logic
+
+Get microblaze out of reset before pulling the PS in a busy loop.
+
+Signed-off-by: Ovidiu Panait <ovpanait@gmail.com>
+---
+ fsbl_debug.h | 1 +
+ fsbl_hooks.c | 9 +++++++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/fsbl_debug.h b/fsbl_debug.h
+index a114aec..882e80f 100644
+--- a/fsbl_debug.h
++++ b/fsbl_debug.h
+@@ -30,6 +30,7 @@
+ extern "C" {
+ #endif
+ 
++#define FSBL_DEBUG_INFO
+ 
+ #define DEBUG_GENERAL	0x00000001    /* general debug  messages */
+ #define DEBUG_INFO	0x00000002    /* More debug information */
+diff --git a/fsbl_hooks.c b/fsbl_hooks.c
+index c1014e5..d14020c 100644
+--- a/fsbl_hooks.c
++++ b/fsbl_hooks.c
+@@ -113,6 +113,14 @@ u32 FsblHookBeforeHandoff(void)
+ 	 */
+ 	fsbl_printf(DEBUG_INFO,"In FsblHookBeforeHandoff function \r\n");
+ 
++	fsbl_printf(DEBUG_INFO,"Toggle GP0 \r\n");
++	Xil_Out32(0xE000A284, 0x1);
++	Xil_Out32(0xE000A048, 0x1);
++
++	fsbl_printf(DEBUG_INFO,"PS is going to sleep! \r\n");
++
++	while(1);
++
+ 	return (Status);
+ }
+ 
+@@ -132,6 +140,7 @@ void FsblHookFallback(void)
+ 	 * Errors to be stored in the status variable and returned
+ 	 */
+ 	fsbl_printf(DEBUG_INFO,"In FsblHookFallback function \r\n");
++
+ 	while(1);
+ }
+ 
+-- 
+2.25.1
+
