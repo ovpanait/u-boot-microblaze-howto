@@ -2,6 +2,7 @@ SCRIPTS_DIR = $(realpath scripts)
 SCRIPTS := $(shell find $(SCRIPTS_DIR))
 
 PATCHES_DIR = $(realpath patches)
+FSBL_PATCHES_DIR = $(PATCHES_DIR)/fsbl
 
 # BIT file
 BIT_FILE ?= $(realpath system_top.bit)
@@ -33,7 +34,7 @@ $(FSBL_SRC): $(GEN_SCRIPTS)
 $(FSBL_ELF): $(FSBL_SRC)
 	cd $(FSBL_SRC); \
 	git init; git add -A; git commit -s -m "init"; \
-	git am $(PATCHES_DIR)/*
+	git am $(FSBL_PATCHES_DIR)/*
 	$(SCRIPTS_DIR)/build_boot_bin.sh build_fsbl $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE)
 
 $(BOOT_BIN): $(FSBL_ELF) $(UBOOT_FILE) $(BIT_FILE) $(HDF_FILE)
