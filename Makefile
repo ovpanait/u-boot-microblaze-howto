@@ -4,14 +4,11 @@ SCRIPTS := $(shell find $(SCRIPTS_DIR))
 PATCHES_DIR = $(realpath patches)
 FSBL_PATCHES_DIR = $(PATCHES_DIR)/fsbl
 
-# BIT file
+# Script parameters
 BIT_FILE ?= $(realpath system_top.bit)
-
-# HDF file
 HDF_FILE ?= $(realpath design.xsa)
-
-# UBOOT elf
 UBOOT_FILE ?= $(realpath u-boot)
+UBOOT_LOADADDR ?= 0x4000000
 
 BUILD_DIR = build/
 OUT_DIR = output/
@@ -26,19 +23,19 @@ all: $(BOOT_BIN)
 $(GEN_SCRIPTS): $(SCRIPTS)
 	rm -rf $(BUILD_DIR) $(OUT_DIR)
 	mkdir -p $(BUILD_DIR) $(OUT_DIR)
-	$(SCRIPTS_DIR)/build_boot_bin.sh scripts $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE)
+	$(SCRIPTS_DIR)/build_boot_bin.sh scripts $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE) $(UBOOT_LOADADDR)
 
 $(FSBL_SRC): $(GEN_SCRIPTS)
-	$(SCRIPTS_DIR)/build_boot_bin.sh create_fsbl $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE)
+	$(SCRIPTS_DIR)/build_boot_bin.sh create_fsbl $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE) $(UBOOT_LOADADDR)
 
 $(FSBL_ELF): $(FSBL_SRC)
 	cd $(FSBL_SRC); \
 	git init; git add -A; git commit -s -m "init"; \
 	git am $(FSBL_PATCHES_DIR)/*
-	$(SCRIPTS_DIR)/build_boot_bin.sh build_fsbl $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE)
+	$(SCRIPTS_DIR)/build_boot_bin.sh build_fsbl $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE) $(UBOOT_LOADADDR)
 
 $(BOOT_BIN): $(FSBL_ELF) $(UBOOT_FILE) $(BIT_FILE) $(HDF_FILE)
-	$(SCRIPTS_DIR)/build_boot_bin.sh build_bootbin $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE)
+	$(SCRIPTS_DIR)/build_boot_bin.sh build_bootbin $(BIT_FILE) $(HDF_FILE) $(UBOOT_FILE) $(UBOOT_LOADADDR)
 
 
 .PHONY: clean

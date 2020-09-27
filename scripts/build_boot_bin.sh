@@ -5,12 +5,13 @@ CMD=$1
 BIT_FILE=$2
 HDF_FILE=$3
 UBOOT_FILE=$4
+UBOOT_LOADADDR=$5
 
 BUILD_DIR=build/
 OUTPUT_DIR=output/
 
 usage() {
-	echo "usage: $0 command system_top.bit system_top.hdf u-boot.elf"
+	echo "usage: $0 command system_top.bit system_top.hdf u-boot.elf 0x4000000"
 	echo "valid commands:"
 	echo "   scripts      :    generate tcl scripts"
 	echo "   create_fsbl  :    generate ZYNQ fsbl"
@@ -22,7 +23,7 @@ usage() {
 
 depends() {
 	echo Xilinx $1 must be installed and in your PATH
-	echo try: source /opt/Xilinx/Vivado/201x.x/settings64.sh
+	echo try: source /opt/Xilinx/Vivado/20xx.x/settings64.sh
 	exit 1
 }
 
@@ -55,7 +56,7 @@ gen_scripts() {
 	echo '{' >> $OUTPUT_DIR/zynq.bif
 	echo '[bootloader] fsbl.elf' >> $OUTPUT_DIR/zynq.bif
 	echo 'system_top.bit' >> $OUTPUT_DIR/zynq.bif
-	echo '[load=0x4000000] u-boot.bin' >> $OUTPUT_DIR/zynq.bif
+	echo '[load='"${UBOOT_LOADADDR}"'] u-boot.bin' >> $OUTPUT_DIR/zynq.bif
 	echo '}' >> $OUTPUT_DIR/zynq.bif
 }
 
