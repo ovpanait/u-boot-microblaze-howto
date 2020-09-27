@@ -3,7 +3,7 @@ set -ex
 
 CMD=$1
 BIT_FILE=$2
-HDF_FILE=$3
+XSA_FILE=$3
 UBOOT_FILE=$4
 UBOOT_LOADADDR=$5
 
@@ -34,18 +34,18 @@ check_xsdk() {
 }
 
 gen_scripts() {
-	cp $HDF_FILE $BUILD_DIR/
+	cp $XSA_FILE $BUILD_DIR/
 
 	### Create create_fsbl.tcl file used by xsdk to create the fsbl
-	echo "hsi open_hw_design `basename $HDF_FILE`" > $BUILD_DIR/create_fsbl.tcl
+	echo "hsi open_hw_design `basename $XSA_FILE`" > $BUILD_DIR/create_fsbl.tcl
 	echo 'set cpu_name [lindex [hsi get_cells -filter {IP_TYPE == PROCESSOR && IP_NAME =~ "*ps7*"}] 0]' >> $BUILD_DIR/create_fsbl.tcl
 	echo 'sdk setws ./build/sdk' >> $BUILD_DIR/create_fsbl.tcl
-	echo "sdk createhw -name hw_0 -hwspec `basename $HDF_FILE`" >> $BUILD_DIR/create_fsbl.tcl
+	echo "sdk createhw -name hw_0 -hwspec `basename $XSA_FILE`" >> $BUILD_DIR/create_fsbl.tcl
 	echo 'sdk createapp -name fsbl -hwproject hw_0 -proc $cpu_name -os standalone -lang C -app {Zynq FSBL}' >> $BUILD_DIR/create_fsbl.tcl
 	echo 'configapp -app fsbl build-config release' >> $BUILD_DIR/create_fsbl.tcl
 
 	### Create build_fsbl_project.tcl file used by xsdk to build the fsbl
-	echo "hsi open_hw_design `basename $HDF_FILE`" > $BUILD_DIR/build_fsbl.tcl
+	echo "hsi open_hw_design `basename $XSA_FILE`" > $BUILD_DIR/build_fsbl.tcl
 	echo 'set cpu_name [lindex [hsi get_cells -filter {IP_TYPE == PROCESSOR && IP_NAME =~ "*ps7*"}] 0]' >> $BUILD_DIR/build_fsbl.tcl
 	echo 'sdk setws ./build/sdk' >> $BUILD_DIR/build_fsbl.tcl
 	echo 'configapp -app fsbl build-config release' >> $BUILD_DIR/build_fsbl.tcl
@@ -76,7 +76,7 @@ build_fsbl() {
 build_bootbin() {
 	### Copy hdf/fsbl/u-boot.elf/system_top.bit into the output folder
 	cp $UBOOT_FILE $OUTPUT_DIR/u-boot.bin
-	cp $HDF_FILE $OUTPUT_DIR/
+	cp $XSA_FILE $OUTPUT_DIR/
 	cp $BUILD_DIR/build/sdk/fsbl/Release/fsbl.elf $OUTPUT_DIR/fsbl.elf
 	cp "${BIT_FILE}" $OUTPUT_DIR/system_top.bit
 
@@ -85,11 +85,11 @@ build_bootbin() {
 }
 
 ### Check command line parameters
-#echo $HDF_FILE | grep -q -e ".hdf" -e ".xsa" || usage
+#echo $XSA_FILE | grep -q -e ".hdf" -e ".xsa" || usage
 #echo $UBOOT_FILE | grep -q -e ".elf" -e "uboot" || usage
 
-if [ ! -f $HDF_FILE ]; then
-    echo $HDF_FILE: File not found!
+if [ ! -f $XSA_FILE ]; then
+    echo $XSA_FILE: File not found!
     usage
 fi
 
