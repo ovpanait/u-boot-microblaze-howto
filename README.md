@@ -23,7 +23,11 @@ Tested config:
  *   0x40600000 - 0x4060FFFF -> AXI UARTlite
  *   0x41400000 - 0x41400FFF -> Microblaze Debug Module
 
-Ethernet and flash support were not tested yet. For reference, bd directory contains some screenshots and the block design exported tcl script.
+Ethernet and flash support were not tested yet. For reference, vivado/bd directory contains some screenshots and the block design exported tcl script:
+
+[-- Full block design diagram --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/bd.png)  
+[-- Microblaze main config --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config.png)  
+[-- Address editor --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/address_editor.png)  
 
 # Build
 
