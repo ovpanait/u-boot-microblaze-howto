@@ -64,7 +64,7 @@ DTS_SDK="$(realpath device-tree-xlnx)"
 mkdir dts
 xsct <<EOF
 hsi open_hw_design "${XSA_FILE}"
-hsi set_repo_path "${DTX_SDK}"
+hsi set_repo_path "${DTS_SDK}"
 hsi create_sw_design device-tree -os device_tree -proc microblaze_0
 hsi generate_target -dir dts
 EOF
