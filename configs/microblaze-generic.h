@@ -54,10 +54,6 @@
 #define XILINX_DCACHE_BYTE_SIZE 32768
 #endif
 
-#define CONFIG_SYS_LOAD_ADDR 0
-#define CONFIG_SYS_MALLOC_LEN    0xC0000
-
-
 #define CONFIG_SYS_INIT_SP_OFFSET (CONFIG_SYS_INIT_RAM_ADDR + \
 				   CONFIG_SYS_INIT_RAM_SIZE -  \
                                    CONFIG_SYS_MALLOC_F_LEN)
