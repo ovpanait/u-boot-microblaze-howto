@@ -52,9 +52,9 @@ Generate bitstream for the block design described earlier (you can use the archi
 
 Run the following vivado tcl commands to generate the xsa/mmi files:
 ```bash
-file copy [glob "[get_property DIRECTORY [current_project]]/[get_property NAME [current_project]].runs/impl_1/*.bit"] <path>/vivado_output/project.bit
+file copy -force [glob "[get_property DIRECTORY [current_project]]/[get_property NAME [current_project]].runs/impl_1/*.bit"] <path>/vivado_output/project.bit
 write_hw_platform -fixed -force -file <path>/vivado_output/project.xsa
-write_mem_info -file <path>/vivado_output/project.mmi
+write_mem_info -force -file <path>/vivado_output/project.mmi
 ```
 
 ## Generate dtb
