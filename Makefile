@@ -13,9 +13,9 @@ UBOOT_LOADADDR ?= 0x4000000
 BUILD_DIR = build/
 OUT_DIR = output/
 
-GEN_SCRIPTS = $(OUT_DIR)/zynq.bif $(BUILD_DIR)/create_fsbl.tcl $(BUILD_DIR)/build_fsbl.tcl
-FSBL_SRC = $(BUILD_DIR)/build/sdk/fsbl/src
-FSBL_ELF = $(BUILD_DIR)/build/sdk/fsbl/Release/fsbl.elf
+GEN_SCRIPTS = $(OUT_DIR)/zynq.bif $(BUILD_DIR)/create_fsbl.tcl
+FSBL_SRC = $(BUILD_DIR)/zynq_fsbl
+FSBL_ELF = $(FSBL_SRC)/executable.elf
 BOOT_BIN = $(OUT_DIR)/BOOT.BIN
 
 all: $(BOOT_BIN)
