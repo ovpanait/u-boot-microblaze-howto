@@ -101,7 +101,6 @@ Current u-boot code for microblaze-generic is designed to boot from NOR flash. I
 
 ```bash
 cd u-boot
-git am ../u-boot-microblaze-howto/patches/u-boot/*
 cp ../u-boot-microblaze-howto/configs/microblaze-generic.h include/configs/
 cp ../u-boot-microblaze-howto/configs/.config .
 make olddefconfig
