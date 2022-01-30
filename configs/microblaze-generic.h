@@ -25,8 +25,6 @@
 
 #include <linux/sizes.h>
 
-#define CONFIG_SYS_USR_EXCEP
-
 /* SPL */
 #define CONFIG_SYS_INIT_RAM_ADDR	0x0
 /* BRAM size - will be generated */
