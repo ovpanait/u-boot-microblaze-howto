@@ -42,9 +42,9 @@ mkdir vivado_output
 git clone https://github.com/Xilinx/device-tree-xlnx.git
 git clone https://github.com/ovpanait/u-boot-microblaze-howto.git
 git clone https://github.com/u-boot/u-boot.git
-wget https://toolchains.bootlin.com/downloads/releases/toolchains/microblazeel/tarballs/microblazeel--glibc--stable-2020.02-2.tar.bz2
-tar -xvf microblazeel--glibc--stable-2020.02-2.tar.bz2
-export CROSS_COMPILE="$(realpath microblazeel--glibc--stable-2020.02-2/bin)/microblazeel-linux-"
+wget https://toolchains.bootlin.com/downloads/releases/toolchains/microblazeel/tarballs/microblazeel--glibc--bleeding-edge-2021.11-1.tar.bz2
+tar -xvf microblazeel--glibc--bleeding-edge-2021.11-1.tar.bz2
+export CROSS_COMPILE="$(realpath microblazeel--glibc--bleeding-edge-2021.11-1/bin)/microblazeel-linux-"
 ```
 
 ## Generate bitstream and export mmi/xsa files
