@@ -23,15 +23,12 @@ usage() {
 }
 
 depends() {
-	echo Xilinx $1 must be installed and in your PATH
-	echo try: source /opt/Xilinx/Vivado/20xx.x/settings64.sh
+	echo $1 not present in PATH. Aborting...
 	exit 1
 }
 
-check_xsdk() {
-	### Check for required Xilinx tools
-	command -v xsct >/dev/null 2>&1 || depends xsct
-	command -v bootgen >/dev/null 2>&1 || depends bootgen
+check() {
+	command -v "$1" >/dev/null 2>&1 || depends "$1"
 }
 
 gen_scripts() {
@@ -54,6 +51,8 @@ gen_scripts() {
 
 ### Generate fsbl sources
 create_fsbl() {
+	check xsct
+
 	cd $BUILD_DIR
 	xsct -sdx -nodisp create_fsbl.tcl
 }
@@ -66,11 +65,24 @@ build_fsbl() {
 	if [ -n "${VITIS_DIR}" ]; then
 		TOOLCHAIN_PATH="${VITIS_DIR}/gnu/aarch32/lin/gcc-arm-none-eabi/bin"
 	fi
-	PATH="${TOOLCHAIN_PATH}:${PATH}" make
+	export PATH="${TOOLCHAIN_PATH}:${PATH}"
+
+	# Needed for fsbl generation. It is usually added to PATH when Vitis
+	# environment is sourced.
+	#
+	# When using the lightweight (~10GB) Vitis archive from Petalinux (e.g.
+	# http://petalinux.xilinx.com/sswreleases/rel-v2021/xsct-trim/xsct-2021-2.tar.xz),
+	# arm-none-eabi-gcc needs to be added manually to PATH (or via the
+	# VITIS_DIR env variable).
+	check arm-none-eabi-gcc
+
+	make
 }
 
 ### Build BOOT.BIN
 build_bootbin() {
+	check bootgen
+
 	### Copy hdf/fsbl/u-boot.elf/system_top.bit into the output folder
 	cp $UBOOT_FILE $OUTPUT_DIR/u-boot.bin
 	cp $XSA_FILE $OUTPUT_DIR/
@@ -94,9 +106,6 @@ if [ ! -f $UBOOT_FILE ]; then
     echo $UBOOT_FILE: File not found!
     usage
 fi
-
-### Check xilinx environment
-check_xsdk
 
 case "$CMD" in
 	"scripts")
