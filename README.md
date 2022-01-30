@@ -132,22 +132,24 @@ Hook up the USB-Serial converter on the Rx/Tx pins defined in the constraints fi
 ```bash
 sudo screen /dev/ttyUSB0 9600
 
-U-Boot SPL 2020.10-rc4-00079-gb4bbc7a648-dirty (Sep 27 2020 - 21:28:42 +0300)
+U-Boot SPL 2022.01-00846-g98a90b2730-dirty (Jan 30 2022 - 17:48:24 +0200)
+SPL: Unsupported Boot Device!
 Trying to boot from RAM
 
 <debug_uart>
 
 
-U-Boot 2020.10-rc4-00079-gb4bbc7a648-dirty (Sep 27 2020 - 21:28:42 +0300)
+U-Boot 2022.01-00846-g98a90b2730-dirty (Jan 30 2022 - 19:04:26 +0200)
 
 Model: Xilinx MicroBlaze
-DRAM:  64 MiB
-WDT:   Not found!
-In:    serial
-Out:   serial
-Err:   serial
+DRAM:  64 MiB   
+Core:  4 devices, 3 uclasses, devicetree: embed
+Loading Environment from nowhere... OK
+In:    serial   
+Out:   serial   
+Err:   serial   
 Net:   No ethernet found.
-U-BOOT for microblaze-generic
+U-BOOT for
 
-U-Boot-mONStR> 
+U-Boot-mONStR>
 ```
