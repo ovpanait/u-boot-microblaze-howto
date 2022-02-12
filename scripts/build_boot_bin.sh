@@ -64,8 +64,8 @@ build_fsbl() {
 
 	if [ -n "${VITIS_DIR}" ]; then
 		TOOLCHAIN_PATH="${VITIS_DIR}/gnu/aarch32/lin/gcc-arm-none-eabi/bin"
+		export PATH="${TOOLCHAIN_PATH}:${PATH}"
 	fi
-	export PATH="${TOOLCHAIN_PATH}:${PATH}"
 
 	# Needed for fsbl generation. It is usually added to PATH when Vitis
 	# environment is sourced.
