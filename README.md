@@ -1,18 +1,13 @@
 # Introduction
-This repository documents the steps I put together trying to get u-boot to boot on the Microblaze soft processor synthesized on an ARTY Z7-20 board. The only documentation that I was able to find is [1], but it describes generating config.mk and xparameters.h files using petalinux and then building u-boot.  
-
-Unfortunately, I was not able to get Petalinux to generate those files because, apparently, PetaLinux workflow does not support having both a Microblaze soft processor and a Zynq processing system IP in the same project... [2] (ARTY Z7-20 does not have a MiG IP for DDR, so I had to use the PS DDR).  
+This repository documents the steps I put together trying to get u-boot to boot on the Microblaze soft processor synthesized on an ARTY Z7-20 board. Available xilinx documentation seems outdated and doesn't help much.
 
 Maybe the info presented here will be a decent starting point to anyone wanting to manually boot u-boot on Microblaze.
 
-[1] https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841973/Build+U-Boot#BuildU-Boot-U-BootforMicroBlaze  
-[2] https://forums.xilinx.com/t5/Embedded-Linux/build-petalinux-for-microblaze-on-zcu102-ultrascale/m-p/1025659/highlight/true#M36838
-
 # Overview
-The design is based around the ARM fsbl. The fsbl programs the FPGA, loads the u-boot proper image to DDR, wakes the Microblaze processor from reset and then puts the ARM processor to sleep. U-boot SPL is bundled with the bitstream using updatemem and loaded into the Microblaze BRAM local memory 
+The design is based around the ARM fsbl. The fsbl programs the FPGA, loads the u-boot proper image to DDR, wakes the Microblaze processor from reset and then puts the ARM processor to sleep. U-boot SPL is bundled with the bitstream using updatemem and loaded into the Microblaze BRAM local memory.
 
 ## Board design
-This repository contains an archived example Vivado project in "vivado" directory that you can adapt (change the board part and the UART Rx/Tx pins according to your board).
+This repository contains an archived example Vivado 2020.1 project (vivado/ directory) that you can adapt (change the board part and the UART Rx/Tx pins according to your board).
 
 Tested config:
 - Memory map:
@@ -31,7 +26,7 @@ Ethernet and flash support were not tested yet. For reference, vivado/bd directo
 
 # Build
 
-All steps assume that Vivado/Vitis environment is sourced. (I used Vivado 2020.1, the steps do not apply to previous releases which do not use xsct).
+All steps assume that Vivado and Vitis environment is sourced. (I used Vivado 2021.2, the steps do not apply to previous releases which do not use xsct).
 
 ## Prepare build environment
 Clone repositories and download prebuilt little endian toolchain for Microblaze:
@@ -97,7 +92,7 @@ cd ..
 ```
 
 ## Build u-boot
-Current u-boot code for microblaze-generic is designed to boot from NOR flash. In this example we boot from RAM(u-boot proper image is preloaded to RAM by the ARM fsbl). In order to achieve this, a couple of patches located in u-boot-microblaze-howto/patches/u-boot need to be applied. Also, a minimal microblaze-generic configuration (microblaze-generic.h) and custom .config are provided in u-boot-microblaze-howto/configs.
+In this example we configure u-boot to boot from RAM (u-boot proper image is preloaded to DRAM by the ARM fsbl). A minimal microblaze-generic configuration (microblaze-generic.h) and a custom .config are provided in u-boot-microblaze-howto/configs.
 
 ```bash
 cd u-boot
@@ -108,7 +103,7 @@ make EXT_DTB="../dts/system.dtb" -j$(nproc)
 ```
 
 ## Bundle u-boot SPL and bitstream
-Create final bitstream which preloads u-boot spl binary to Microblaze BRAM.
+Create final bitstream which has the u-boot spl binary embedded inside the BRAM local memory.
 
 ```bash
 cd spl; cp u-boot-spl u-boot-spl.elf
