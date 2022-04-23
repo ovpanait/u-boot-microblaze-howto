@@ -106,9 +106,9 @@ make EXT_DTB="../dts/system.dtb" -j$(nproc)
 Create final bitstream which has the u-boot spl binary embedded inside the BRAM local memory.
 
 ```bash
-cd spl; cp u-boot-spl u-boot-spl.elf
+cp spl/u-boot-spl spl/u-boot-spl.elf
 updatemem -meminfo ../../vivado_output/project.mmi -data u-boot-spl.elf -bit ../../vivado_output/project.bit -proc design_1_i/microblaze_0  -out ../../vivado_output/final.bit -force
-cd ../..
+cd ..
 ```
 
 ## Generate BOOT.BIN
