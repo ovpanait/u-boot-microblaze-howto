@@ -92,11 +92,10 @@ cd ..
 ```
 
 ## Build u-boot
-In this example we configure u-boot to boot from RAM (u-boot proper image is preloaded to DRAM by the ARM fsbl). A minimal microblaze-generic configuration (microblaze-generic.h) and a custom .config are provided in u-boot-microblaze-howto/configs.
+In this example we configure u-boot to boot from RAM (u-boot proper image is preloaded to DRAM by the ARM fsbl). A custom .config file is provided in u-boot-microblaze-howto/configs.
 
 ```bash
 cd u-boot
-cp ../u-boot-microblaze-howto/configs/microblaze-generic.h include/configs/
 cp ../u-boot-microblaze-howto/configs/.config .
 make olddefconfig
 make EXT_DTB="../dts/system.dtb" -j$(nproc)
