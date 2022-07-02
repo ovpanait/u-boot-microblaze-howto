@@ -1,0 +1,17 @@
+The following Kconfig options are specifc to the project configuration used in
+this example:
+
+# DDR location where the u-boot proper image is located (preloaded by ARM fsbl)
+CONFIG_SYS_TEXT_BASE=0x04000000
+CONFIG_SYS_MONITOR_BASE=0x04000000
+
+# Debug UART
+CONFIG_DEBUG_UART=y
+CONFIG_DEBUG_UART_UARTLITE=y
+CONFIG_DEBUG_UART_BASE=0x40600000
+CONFIG_DEBUG_UART_CLOCK=50000000
+
+CONFIG_SPL_DEBUG_UART_BASE=0x40600000
+
+# Disable NOR boot to force booting from RAM.
+# CONFIG_SPL_NOR_SUPPORT is not set
