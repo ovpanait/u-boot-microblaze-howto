@@ -2,8 +2,8 @@ The following Kconfig options are specifc to the project configuration used in
 this example:
 
 # DDR location where the u-boot proper image is located (preloaded by ARM fsbl)
-CONFIG_SYS_TEXT_BASE=0x04000000
-CONFIG_SYS_MONITOR_BASE=0x04000000
+CONFIG_SYS_TEXT_BASE=0x05000000
+CONFIG_SYS_MONITOR_BASE=0x05000000
 
 # For "Low-end Linux with MMU" MicroBlaze config, the DIV instruction is
 # disabled

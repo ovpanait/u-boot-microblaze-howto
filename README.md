@@ -116,7 +116,7 @@ build_boot_bin.sh script and Makefile logic are used to automate the generation 
 
 ```bash
 cd u-boot-microblaze-howto
-make XSA_FILE="../vivado_output/project.xsa" BIT_FILE="../vivado_output/final.bit" UBOOT_FILE="../u-boot/u-boot.bin" UBOOT_LOADADDR="0x4000000"
+make XSA_FILE="../vivado_output/project.xsa" BIT_FILE="../vivado_output/final.bit" UBOOT_FILE="../u-boot/u-boot.bin" UBOOT_LOADADDR="0x5000000"
 ```
 
 The generated BOOT.BIN file is available in u-boot-microblaze-howto/output/BOOT.BIN
