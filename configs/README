@@ -5,13 +5,29 @@ this example:
 CONFIG_SYS_TEXT_BASE=0x04000000
 CONFIG_SYS_MONITOR_BASE=0x04000000
 
+# For "Low-end Linux with MMU" MicroBlaze config, the DIV instruction is
+# disabled
+CONFIG_XILINX_MICROBLAZE0_USE_DIV=0
+
 # Debug UART
 CONFIG_DEBUG_UART=y
 CONFIG_DEBUG_UART_UARTLITE=y
+
 CONFIG_DEBUG_UART_BASE=0x40600000
 CONFIG_DEBUG_UART_CLOCK=50000000
+CONFIG_BAUDRATE=9600
 
 CONFIG_SPL_DEBUG_UART_BASE=0x40600000
 
 # Disable NOR boot to force booting from RAM.
 # CONFIG_SPL_NOR_SUPPORT is not set
+
+# Make sure all MTD configs are disabled (no Flash available for testing
+# unfortunately, and the PS QSPI seems inaccessible from PL)
+# CONFIG_MTD is not set
+# CONFIG_DM_MTD is not set
+# CONFIG_MTD_NOR_FLASH is not set
+# CONFIG_FLASH_CFI_DRIVER is not set
+# CONFIG_USE_SYS_MAX_FLASH_BANKS is not set
+# CONFIG_MTD_RAW_NAND is not set
+# CONFIG_MTD_SPI_NAND is not set
