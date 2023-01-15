@@ -11,18 +11,23 @@ This repository contains an archived example Vivado 2020.1 project (vivado/ dire
 
 Tested config:
 - Memory map:
- *   0x00000000 - 0x0001FFFF -> 128 KB BRAM
- *   0x04000000 - 0x07FFFFFF -> 64  MB DRAM
+ *   0x00000000 - 0x0001FFFF -> 128KB BRAM
+ *   0x04000000 - 0x07FFFFFF -> 64MB DRAM
+ *   0x40000000 - 0x4000FFFF -> AXI GPIO
  *   0x41200000 - 0x4120FFFF -> AXI Interrupt Controller
  *   0x41C00000 - 0x41C0FFFF -> AXI Timer
  *   0x40600000 - 0x4060FFFF -> AXI UARTlite
- *   0x41400000 - 0x41400FFF -> Microblaze Debug Module
 
 Ethernet and flash support were not tested yet. For reference, vivado/bd directory contains some screenshots and the block design exported tcl script:
 
 [-- Full block design diagram --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/bd.png)  
-[-- Microblaze main config --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config.png)  
 [-- Address editor --](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/address_editor.png)  
+Microblaze configs: [1](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config1.png)
+[2](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config2.png)
+[3](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config3.png)
+[4](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config4.png)
+[5](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config5.png)
+[6](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config6.png)  
 
 # Build
 
