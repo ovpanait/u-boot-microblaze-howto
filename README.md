@@ -30,10 +30,9 @@ Microblaze configs: [1](https://github.com/ovpanait/u-boot-microblaze-howto/blob
 [6](https://github.com/ovpanait/u-boot-microblaze-howto/blob/master/vivado/bd/microblaze_config6.png)  
 
 # Build
-
-All steps assume that Vivado and Vitis environment is sourced. (I used Vivado 2021.2, the steps do not apply to previous releases which do not use xsct).
-
 ## Prepare build environment
+Make sure Vivado and Vitis environments are sourced.  
+
 Clone repositories and download prebuilt little endian toolchain for Microblaze:
 
 ```bash
